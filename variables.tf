@@ -12,3 +12,13 @@ variable "environment" {
   type        = string
   description = "dev | prod"
 }
+
+variable "agent_iam_roles" {
+  description = "IAM roles required by the Vertex AI Agent service account"
+  type        = list(string)
+  default = [
+    "roles/aiplatform.user",
+    "roles/run.invoker",
+    "roles/logging.logWriter"
+  ]
+}
