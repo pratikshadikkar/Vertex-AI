@@ -6,6 +6,15 @@ variable "agent_name" { type = string }
 variable "tool_image" {
   description = "Artifact Registry image for agent tools"
   type        = string
+  validation {
+    condition     = length(trim(var.docker_image)) > 0
+    error_message = "docker_image must be provided and cannot be empty."
+  }
+
+  validation {
+    condition     = can(regex("^.+/.+:.+$", var.docker_image))
+    error_message = "docker_image must include a tag (e.g., :v1.0.0)."
+  }
 }
 
 variable "environment" {
