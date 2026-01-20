@@ -1,29 +1,29 @@
-name: Terraform Apply DEV
+# name: Terraform Apply DEV
 
-on:
-  push:
-    branches: [ "main" ]
-    paths: [ "terraform/**" ]
+# on:
+#   push:
+#     branches: [ "main" ]
+#     paths: [ "terraform/**" ]
 
-permissions:
-  id-token: write
-  contents: read
+# permissions:
+#   id-token: write
+#   contents: read
 
-jobs:
-  apply:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
+# jobs:
+#   apply:
+#     runs-on: ubuntu-latest
+#     steps:
+#       - uses: actions/checkout@v4
 
-      - uses: google-github-actions/auth@v2
-        with:
-          workload_identity_provider: "projects/PROJECT_NUMBER/locations/global/workloadIdentityPools/github-pool/providers/github-provider"
-          service_account: "terraform-deployer@PROJECT_ID.iam.gserviceaccount.com"
+#       - uses: google-github-actions/auth@v2
+#         with:
+#           workload_identity_provider: "projects/PROJECT_NUMBER/locations/global/workloadIdentityPools/github-pool/providers/github-provider"
+#           service_account: "terraform-deployer@PROJECT_ID.iam.gserviceaccount.com"
 
-      - uses: hashicorp/setup-terraform@v3
+#       - uses: hashicorp/setup-terraform@v3
 
-      - run: terraform init
-        working-directory: terraform/envs/dev
+#       - run: terraform init
+#         working-directory: terraform/envs/dev
 
-      - run: terraform apply -auto-approve
-        working-directory: terraform/envs/dev
+#       - run: terraform apply -auto-approve
+#         working-directory: terraform/envs/dev

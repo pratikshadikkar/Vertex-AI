@@ -69,7 +69,7 @@ run "cloudrun_valid_image" {
   command = plan
 
   module {
-    source = "../modules/vertex-agent"
+    source = "../terraform/modules"
 
     tool_image = "us-east4-docker.pkg.dev/my-proj/agents/vertex-agent:v1.0.0"
   }

@@ -1,5 +1,5 @@
 variable "project_id" { type = string }
-variable "region"     { type = string default = "us-east4" }
+variable "region"     { type = string }
 
 variable "agent_name" { type = string }
 
