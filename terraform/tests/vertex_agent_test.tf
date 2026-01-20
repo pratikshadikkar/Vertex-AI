@@ -41,11 +41,11 @@ run "cloudrun_missing_image_should_fail" {
   module {
     source = "../terraform/modules"
 
-    docker_image = ""   #  intentionally missing
+    tool_image = ""   #  intentionally missing
   }
 
   expect_failures = [
-    var.docker_image
+    var.tool_image
   ]
 }
 
@@ -56,11 +56,11 @@ run "cloudrun_invalid_image_format" {
   module {
     source = "../terraform/modules"
 
-    docker_image = "gcr.io/my-project/agent" #  no tag
+    tool_image = "gcr.io/my-project/agent" #  no tag
   }
 
   expect_failures = [
-    var.docker_image
+    var.tool_image
   ]
 }
 
@@ -71,7 +71,7 @@ run "cloudrun_valid_image" {
   module {
     source = "../modules/vertex-agent"
 
-    docker_image = "us-east4-docker.pkg.dev/my-proj/agents/vertex-agent:v1.0.0"
+    tool_image = "us-east4-docker.pkg.dev/my-proj/agents/vertex-agent:v1.0.0"
   }
 
   assert {
