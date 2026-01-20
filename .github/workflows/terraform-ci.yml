@@ -1,0 +1,43 @@
+name: Terraform CI
+
+on:
+  pull_request:
+    branches: [ main ]
+  push:
+    branches: [ main ]
+
+jobs:
+  terraform:
+    name: Terraform Validate & Test
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        shell: bash
+
+    steps:
+      # 1️⃣ Checkout code
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # 2️⃣ Setup Terraform
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: 1.6.6
+
+      # 3️⃣ Terraform Init
+      - name: Terraform Init
+        run: terraform init -backend=false
+
+      # 4️⃣ Terraform Format Check
+      - name: Terraform Format
+        run: terraform fmt -check -recursive
+
+      # 5️⃣ Terraform Validate
+      - name: Terraform Validate
+        run: terraform validate
+
+      # 6️⃣ Terraform Unit Tests
+      - name: Terraform Test
+        run: terraform test
