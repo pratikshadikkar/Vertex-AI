@@ -10,3 +10,12 @@ resource "google_project_iam_member" "agent_roles" {
   role    = each.value
   member  = "serviceAccount:${google_service_account.agent_sa.email}"
 }
+
+resource "google_secret_manager_secret_iam_member" "agent_access" {
+  for_each = toset(var.secret_ids)
+
+  project   = var.project_id
+  secret_id = each.value
+  role      = "roles/secretmanager.secretAccessor"
+  member    = "serviceAccount:${google_service_account.agent_sa.email}"
+}

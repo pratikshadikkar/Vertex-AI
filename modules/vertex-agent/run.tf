@@ -18,6 +18,16 @@ resource "google_cloud_run_service" "agent_tools" {
         env {
           name  = "AGENT_CONFIG_SECRET"
           value = google_secret_manager_secret.agent_config.secret_id
+
+        }
+        env {
+          name = "LLM_API_KEY"
+          value_source {
+          secret_key_ref {
+                secret  = "LLM_API_KEY"
+                version = "latest"
+           }
+          }
         }
 
         resources {
