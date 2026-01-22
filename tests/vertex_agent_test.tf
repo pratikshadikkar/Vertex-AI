@@ -3,7 +3,7 @@ run "vertex_agent_unit_test" {
   command = plan
 
   module {
-    source = "../terraform/modules"
+    source = "../modules/vertex-agent"
 
     project_id   = "test-project"
     environment  = "dev"
@@ -39,7 +39,7 @@ run "cloudrun_missing_image_should_fail" {
   command = plan
 
   module {
-    source = "../terraform/modules"
+    source = "../modules/vertex-agent"
 
     tool_image = ""   #  intentionally missing
   }
@@ -54,7 +54,7 @@ run "cloudrun_invalid_image_format" {
   command = plan
 
   module {
-    source = "../terraform/modules"
+    source = "../modules/vertex-agent"
 
     tool_image = "gcr.io/my-project/agent" #  no tag
   }
@@ -69,7 +69,7 @@ run "cloudrun_valid_image" {
   command = plan
 
   module {
-    source = "../terraform/modules"
+    source = "../modules/vertex-agent"
 
     tool_image = "us-east4-docker.pkg.dev/my-proj/agents/vertex-agent:v1.0.0"
   }
@@ -77,6 +77,13 @@ run "cloudrun_valid_image" {
   assert {
     condition     = google_cloud_run_v2_service.agent.template[0].containers[0].image != ""
     error_message = "Cloud Run image should not be empty"
+  }
+}
+
+run "secret_access_granted" {
+  assert {
+    condition = length(module.vertex_agent.secret_ids) > 0
+    error_message = "Agent must have secret access configured"
   }
 }
 

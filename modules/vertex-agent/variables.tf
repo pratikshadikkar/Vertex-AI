@@ -32,3 +32,11 @@ variable "agent_iam_roles" {
   ]
 }
 
+variable "vector_endpoint_id" {
+  type = string
+}
+
+variable "secret_ids" {
+  type = list(string)
+}
+
