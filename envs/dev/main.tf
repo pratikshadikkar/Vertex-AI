@@ -18,3 +18,4 @@ module "vertex_agent" {
   tool_image       = "us-east4-docker.pkg.dev/proj/agents/agent:v1"
   vector_endpoint_id = module.vector_search.index_endpoint_id
 }
+
